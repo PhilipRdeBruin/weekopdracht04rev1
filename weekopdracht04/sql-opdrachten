@@ -1,0 +1,75 @@
+SQL-opdrachten:
+
+CREATE TABLE rubrieken (
+    rubr_id INT AUTO_INCREMENT,
+    rubriek_naam VARCHAR(255) NOT NULL,
+    PRIMARY KEY (rubr_id)
+);
+
+
+INSERT INTO rubrieken(rubriek_naam) VALUES('Sport en recreatie');
+
+
+INSERT INTO rubrieken(rubriek_naam)
+VALUES
+ ('Kunst en cultuur'),
+ ('Reizen'),
+ ('Gastronomie'),
+ ('Klussen'),
+ ('Gastronomie'),
+ ('Tuinieren'),
+ ('Gezin en familie'),
+ ('Politiek'),
+ ('Huisdieren'),
+ ('Economie'),
+ ('Auto\'s en vervoer'),
+ ('Klimaat'),
+ ('Computers en automatisering');
+
+
+DELETE FROM berichten WHERE id = 69;
+
+ALTER TABLE berichten ADD COLUMN rubriek_id INT(11) NOT NULL AFTER rubriek;
+
+UPDATE berichten INNER JOIN rubrieken ON berichten.rubriek = rubrieken.rubriek_naam SET berichten.rubriek_id = rubrieken.rubr_id;
+
+CREATE TABLE berichten_rubrieken (id INT NOT NULL AUTO_INCREMENT, bericht_id INT NOT NULL, rubriek_id INT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (bericht_id) REFERENCES berichten(id), FOREIGN KEY (rubriek_id) REFERENCES rubrieken(rubr_id));
+
+drop TABLE berichten_gebruikers;
+
+SELECT * FROM berichten b INNER JOIN rubrieken r ON b.rubriek_id = r.rubr_id;
+
+UPDATE berichten SET auteur_id = '3' WHERE auteur = 'Judith Schrijver';
+
+ALTER TABLE gebruikers ADD UNIQUE (`email`);
+
+ALTER TABLE berichten ADD FOREIGN KEY (rubriek_id) REFERENCES rubrieken(rubr_id);
+
+SELECT rubriek_id FROM berichten_rubrieken WHERE bericht_id = '73' 
+
+SELECT onderwerp, g.achternaam, g.tussenv, g.voornaam, r.rubriek_naam FROM berichten b 
+	INNER JOIN rubrieken r ON b.rubriek_id = r.rubr_id 
+	INNER JOIN gebruikers g ON b.auteur_id = g.gebr_id 
+	ORDER BY g.achternaam ASC, g.voornaam ASC;
+
+SELECT * FROM berichten b, rubrieken r, berichten_rubrieken br
+	WHERE b.id = br.bericht_id AND r.rubr_id = br.rubriek_id
+	ORDER BY b.geplaatst DESC;
+
+SELECT b.onderwerp, g.achternaam, g.tussenv, g.voornaam, r.rubriek_naam, b.geplaatst 
+	FROM berichten b, rubrieken r, berichten_rubrieken br, gebruikers g 
+	WHERE b.id = br.bericht_id AND r.rubr_id = br.rubriek_id AND b.auteur_id = g.gebr_id 
+	ORDER BY b.geplaatst DESC; 
+
+CREATE TABLE berichten2 (
+    id INT AUTO_INCREMENT,
+    auteur_id INT NOT NULL,
+    rubriek_id INT NOT NULL,
+    onderwerp VARCHAR(255) NOT NULL,
+    geplaatst datetime NOT NULL,
+    gewijzigd datetime NOT NULL,
+    PRIMARY KEY (id));
+
+
+
+
