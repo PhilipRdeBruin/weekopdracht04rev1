@@ -28,6 +28,16 @@
         <?php if ($berichtknop == "Plaats bericht") { $id = ""; } ?>
         <input type="hidden" name="id" value=" <?php echo $id; ?> ">
         <textarea id="bericht" name="bericht" rows="16" cols="80"><?php echo $bericht; ?></textarea><br/><br/>
+
+           <script>
+               ClassicEditor
+                   .create( document.querySelector( ‘#bericht’ ) )
+                   .catch( error => {
+                   console.error( error );
+              } );
+
+           </script>
+
         <input type="submit" id="berichtinp" value="<?php echo $berichtknop; ?>">
         <input type="hidden" id="berichtinphidden" value=" <?php echo $berichtknop; ?> ">
     </form>

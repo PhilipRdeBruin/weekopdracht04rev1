@@ -17,6 +17,7 @@
 	<meta name="author" content="Philip de Bruin">
 
 	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+	<script src=“functies/ckeditor.js”></script>
 	<script src="functies/js_functies.js"></script>
 	<script src="functies/dragendrop_functies.js"></script>
 
